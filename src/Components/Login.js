@@ -9,8 +9,8 @@ const Login = (props) => {
           <img src="/images/login-logo.svg" alt="Logo" />
         </a>
         <div>
-          <Join>Join Now</Join>
-          <SignIn>Sign In</SignIn>
+          <Join>Join now</Join>
+          <SignIn>Sign in</SignIn>
         </div>
       </Nav>
       <Section>
@@ -71,7 +71,7 @@ const Join = styled.a`
   font-size: 16px;
   /* font-weight: 550; */
   padding: 10px 12px;
-  margin: 0 12px 0 0;
+  margin: 0 8px 0 0;
   text-decoration: none;
 
   &:hover {
@@ -109,7 +109,7 @@ const Section = styled.section`
   min-height: 700px;
   margin: auto;
   max-width: 1128px;
-  padding: 70px 0 120px;
+  padding: 50px 0 80px;
   position: relative;
   width: 100%;
 
@@ -121,7 +121,14 @@ const Section = styled.section`
 const Hero = styled.div`
   display: flex;
   align-items: center;
+  padding: 0 10px;
   width: 100%;
+
+  @media (max-width: 768px) {
+    flex-direction: column;
+    max-width: 392px;
+    margin: 0 auto;
+  }
 
   h1 {
     color: #2977c9;
@@ -130,12 +137,12 @@ const Hero = styled.div`
     line-height: 70px;
     padding-bottom: 0;
     margin-bottom: 1rem;
-    width: 60%;
+    width: 59%;
 
     @media (max-width: 768px) {
-      font-size: 20px;
-      text-align: center;
-      line-height: 2;
+      font-size: 42px;
+      /* text-align: center; */
+      line-height: 1.25;
       width: 100%;
     }
   }
@@ -143,9 +150,8 @@ const Hero = styled.div`
   img.hero-illustration {
     /* border: 2px solid red; */
     position: absolute;
-    bottom: 230px;
+    bottom: 190px;
     right: -150px;
-    /* right: -2px; */
     height: 670px;
     width: 700px;
     z-index: -1;
@@ -160,15 +166,45 @@ const Hero = styled.div`
       z-index: 0;
     }
   }
-
-  @media (max-width: 768px) {
-    flex-direction: column;
-    padding: 0 10px;
-  }
 `;
 
-const Form = styled.div``;
+// Form Component
+const Form = styled.div`
+  /* border: 1px solid red; */
+  width: 100%;
+  margin-bottom: 1.5rem;
+`;
 
-const GoogleSignIn = styled.button``;
+// Sign In Button
+const GoogleSignIn = styled.button`
+  background-color: transparent;
+  box-shadow: inset 0 0 0 1px rgba(0 0 0 / 60%),
+    inset 0 0 0 2px rgb(0 0 0 / 0) inset 0 0 0 1px rgba(0 0 0 / 0);
+  border-radius: 28px;
+  color: rgba(0, 0, 0, 0.8);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 16px;
+  padding: 10px 14px;
+  transition: 0.17s ease;
+  vertical-align: middle;
+  width: 320px;
+  z-index: 0;
+
+  &:hover {
+    background-color: rgba(207, 207, 207, 0.25);
+    cursor: pointer;
+    color: rgba(0, 0, 0, 0.9);
+  }
+
+  img {
+    margin-right: 15px;
+  }
+
+  @media (max-width: 768px) {
+    width: 100%;
+  }
+`;
 
 export default Login;
