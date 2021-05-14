@@ -19,17 +19,36 @@ const LeftSide = () => {
           <AnchorTag>
             <div>
               <span>Connections</span>
-              <span>Grow Your Network</span>
+              <span>Expand your network. Add new connections</span>
             </div>
             <img src="/images/widget-icon.svg" alt="connections" />
           </AnchorTag>
         </Widget>
         <Item>
           <span>
+            My items
             <img src="/images/item-icon.svg" alt="add item" />
           </span>
         </Item>
       </ArtCard>
+
+      <CommunityCard>
+        <AnchorTag>
+          <span>Groups</span>
+        </AnchorTag>
+        <AnchorTag>
+          <span>
+            Events
+            <img src="/images/plus-icon.svg" alt="add event" />
+          </span>
+        </AnchorTag>
+        <AnchorTag>
+          <span>Follow hashtags</span>
+        </AnchorTag>
+        <AnchorTag>
+          <span>Discover more</span>
+        </AnchorTag>
+      </CommunityCard>
     </Container>
   );
 };
@@ -57,13 +76,6 @@ const UserInfo = styled.div`
   padding: 12px 12px 16px;
   word-wrap: break-word;
   word-break: break-word;
-
-  /* button {
-    pointer-events: none;
-    display: block;
-    text-align: center;
-    width: 100%;
-  } */
 `;
 
 const CardBackground = styled.div`
@@ -118,6 +130,7 @@ const Widget = styled.div`
     div {
       display: flex;
       flex-direction: column;
+      margin-right: 1.2rem;
       text-align: left;
 
       span {
@@ -127,15 +140,78 @@ const Widget = styled.div`
         &:first-child {
           color: rgba(0, 0, 0, 0.6);
         }
+
+        &:last-child {
+          font-size: 12px;
+        }
       }
     }
   }
 
   img {
     height: 19px;
+    margin-right: 0;
   }
 `;
 
-const Item = styled.a``;
+const Item = styled.a`
+  border-color: rgba(0, 0, 0, 0.8);
+  display: block;
+  font-size: 14px;
+  text-align: left;
+  padding: 12px;
+
+  span {
+    display: flex;
+    align-items: flex-end;
+    /* align-content: flex-start; */
+    justify-content: space-between;
+    color: rgba(0, 0, 0, 1);
+  }
+
+  &:hover {
+    background-color: rgba(0, 0, 0, 0.18);
+  }
+`;
+
+const CommunityCard = styled(ArtCard)`
+  display: flex;
+  flex-direction: column;
+  padding: 8px 0 0;
+  text-align: left;
+
+  ${AnchorTag} {
+    font-size: 14px;
+    padding: 4px 12px;
+
+    &:hover {
+      color: #0a66c2;
+      font-weight: 600;
+    }
+
+    span {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      cursor: pointer;
+
+      &:last-child {
+        margin-bottom: 4px;
+      }
+    }
+
+    &:last-child {
+      border-top: 1px solid #d6cec2;
+      color: rgba(0, 0, 0, 0.7);
+      padding: 8px 12px 8px;
+
+      &:hover {
+        background-color: rgba(0, 0, 0, 0.18);
+        color: rgba(0, 0, 0, 1);
+        cursor: pointer;
+      }
+    }
+  }
+`;
 
 export default LeftSide;
