@@ -1,6 +1,9 @@
 import styled from "styled-components";
 
 import React from "react";
+import LeftSide from "./LeftSide";
+import Main from "./Main";
+import RightSide from "./RightSide";
 
 const Home = () => {
   return (
@@ -14,9 +17,9 @@ const Home = () => {
           </p>
         </Section>
         <Layout>
-          <div>Left Side</div>
-          <div>Main</div>
-          <div>Right Side</div>
+          <LeftSide />
+          <Main />
+          <RightSide />
         </Layout>
       </Content>
     </Container>
@@ -62,23 +65,20 @@ const Section = styled.section`
       }
     }
   }
-
-  /* button {
-    background-color: transparent;
-    border: none;
-    cursor: pointer;
-    display: inline;
-    font-size: 16px;
-    margin: 0;
-    outline: none;
-    padding: 0;
-    text-decoration: none;
-  } */
 `;
 
 const Layout = styled.div`
   display: grid;
-  grid-template-areas: "leftSide Main rightSide";
+  grid-template-areas: "leftSide main rightSide";
   grid-template-columns: minmax(0, 5fr) minmax(0, 12fr) minmax(300px, 7fr);
   column-gap: 25px;
+  row-gap: 25px;
+  grid-template-rows: auto;
+  margin: 25px auto;
+
+  @media (max-width: 768px) {
+    display: flex;
+    flex-direction: column;
+    padding: 0 5px;
+  }
 `;

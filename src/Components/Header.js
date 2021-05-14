@@ -22,59 +22,59 @@ const Header = () => {
         <Nav>
           <NavWrapper>
             <NavList className="active">
-              <button>
+              <AnchorTag>
                 <img src="/images/nav-home.svg" alt="home icon" />
                 <span>Home</span>
-              </button>
+              </AnchorTag>
             </NavList>
             <NavList>
-              <button>
+              <AnchorTag>
                 <img src="/images/nav-network.svg" alt="network icon" />
                 <span>My Network</span>
-              </button>
+              </AnchorTag>
             </NavList>
             <NavList>
-              <button>
+              <AnchorTag>
                 <img src="/images/nav-jobs.svg" alt="jobs icon" />
                 <span>Jobs</span>
-              </button>
+              </AnchorTag>
             </NavList>
             <NavList>
-              <button>
+              <AnchorTag>
                 <img src="/images/nav-messaging.svg" alt="messaging icon" />
                 <span>Messaging</span>
-              </button>
+              </AnchorTag>
             </NavList>
             <NavList>
-              <button>
+              <AnchorTag>
                 <img
                   src="/images/nav-notifications.svg"
                   alt="notifications icon"
                 />
                 <span>Notifications</span>
-              </button>
+              </AnchorTag>
             </NavList>
             <UserIcon>
-              <button>
+              <AnchorTag>
                 <img src="/images/user.svg" alt="user icon" />
                 <span>
                   Me
                   <img src="/images/down-icon.svg" alt="dropdown icon" />
                 </span>
-              </button>
+              </AnchorTag>
 
               <SignOut>
-                <button>Sign Out</button>
+                <AnchorTag>Sign Out</AnchorTag>
               </SignOut>
             </UserIcon>
             <WorkIcon>
-              <button>
+              <AnchorTag>
                 <img src="/images/nav-work.svg" alt="work icon" />
                 <span>
                   Work
                   <img src="/images/down-icon.svg" alt="dropdown icon" />
                 </span>
-              </button>
+              </AnchorTag>
             </WorkIcon>
           </NavWrapper>
         </Nav>
@@ -94,6 +94,10 @@ const Component = styled.div`
   left: 0;
   width: 100vw;
   z-index: 100;
+`;
+
+const AnchorTag = styled.a`
+  text-decoration: none;
 `;
 
 const Content = styled.div`
@@ -188,16 +192,23 @@ const NavList = styled.li`
       content: "";
       transform: scaleX(1);
       border-bottom: 2px solid var(--white, #fff);
+      border-top: 0;
       border-color: rgba(0, 0, 0, 0.9);
       bottom: 0;
       left: 0;
       position: absolute;
       transition: transform 0.2s ease-in-out;
+      height: 100%;
       width: 100%;
+
+      @media (max-width: 768px) {
+        border-bottom: none;
+        border-top: 2px solid rgba(0, 0, 0, 0.9);
+      }
     }
   }
 
-  button {
+  ${AnchorTag} {
     background-color: transparent;
     border: none;
     cursor: pointer;
@@ -219,6 +230,10 @@ const NavList = styled.li`
       color: rgba(0, 0, 0, 0.6);
       display: flex;
       align-items: center;
+
+      @media (max-width: 768px) {
+        line-height: 1;
+      }
     }
 
     @media (max-width: 768px) {
@@ -228,7 +243,7 @@ const NavList = styled.li`
 
   &:hover,
   &:active {
-    button {
+    ${AnchorTag} {
       opacity: 0.9;
       span {
         color: rgba(0, 0, 0, 0.9);
@@ -257,7 +272,7 @@ const SignOut = styled.div`
 
 // UserIcon
 const UserIcon = styled(NavList)`
-  button > img {
+  ${AnchorTag} > img {
     border-radius: 50%;
     height: 26px;
     width: 26px;
