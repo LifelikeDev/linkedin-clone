@@ -172,7 +172,12 @@ const Hero = styled.div`
 const Form = styled.div`
   /* border: 1px solid red; */
   width: 100%;
+  margin-top: 2.5rem;
   margin-bottom: 1.5rem;
+
+  @media (max-width: 768px) {
+    margin-top: 0;
+  }
 `;
 
 // Sign In Button
