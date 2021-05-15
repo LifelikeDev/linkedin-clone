@@ -30,7 +30,21 @@ const RightSide = () => {
             </div>
           </li>
         </FeedList>
+
+        <Recommendation>
+          <span>View all recommendations</span>
+          <img src="/images/right-icon.svg" alt="view all recommendations" />
+        </Recommendation>
       </FollowCard>
+
+      <BannerCard>
+        {/* <img
+          src="https://static-exp1.licdn.com/scds/common/u/images/promo/ads/li_evergreen_jobs_ad_300x250_v1.jpg"
+          alt=""
+        /> */}
+
+        <img src="/images/banner-card.jpg" alt="linkedin banner card" />
+      </BannerCard>
     </Container>
   );
 };
@@ -112,6 +126,29 @@ const Avatar = styled.div`
   margin-right: 8px;
   height: 40px;
   width: 40px;
+`;
+
+const Recommendation = styled.a`
+  color: #0a66c2;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  font-size: 13px;
+
+  &:hover {
+    transform: scale(1.01);
+  }
+
+  span {
+    margin-right: 3px;
+  }
+`;
+
+const BannerCard = styled(FollowCard)`
+  img {
+    height: 100%;
+    width: 100%;
+  }
 `;
 
 export default RightSide;
