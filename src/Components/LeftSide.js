@@ -65,7 +65,6 @@ const ArtCard = styled.div`
   border: none;
   border-radius: 4px;
   box-shadow: 0 0 0 1px rgb(0 0 0 / 15%), 0 0 0 rgb(0 0 0/ 20%);
-  margin-top: 8px;
   text-align: center;
   /* overflow: hidden; */
   transition: box-shadow 0.8s;
