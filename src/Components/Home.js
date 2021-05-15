@@ -29,7 +29,7 @@ const Home = () => {
 export default Home;
 
 const Container = styled.div`
-  padding-top: 42px;
+  padding: 42px 0;
   max-width: 100%;
 
   @media (max-width: 768px) {

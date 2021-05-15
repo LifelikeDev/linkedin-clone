@@ -181,10 +181,12 @@ const CommunityCard = styled(ArtCard)`
   text-align: left;
 
   ${AnchorTag} {
+    /* border-bottom: 1px solid rgba(0 0 0 / 5%); */
     font-size: 14px;
     padding: 4px 12px;
 
     &:hover {
+      background-color: #0a66c218;
       color: #0a66c2;
       font-weight: 600;
     }
