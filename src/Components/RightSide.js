@@ -145,6 +145,7 @@ const Recommendation = styled.a`
 `;
 
 const BannerCard = styled(FollowCard)`
+  cursor: pointer;
   img {
     height: 100%;
     width: 100%;

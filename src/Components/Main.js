@@ -53,6 +53,39 @@ const Main = () => {
         <SharedImage>
           <img src="/images/shared-image.jpg" alt="Waters by a city" />
         </SharedImage>
+
+        <PostReactions>
+          <li>
+            <button>
+              <img src="/images/likes.svg" alt="likes" />
+              <img src="/images/reactions.svg" alt="reactions" />
+              <img src="/images/love-reaction.svg" alt="loves" />
+              <span>24</span>
+            </button>
+          </li>
+          <li>
+            <AnchorTag>5 comments </AnchorTag>
+          </li>
+        </PostReactions>
+
+        <ReactToPost>
+          <button>
+            <img src="/images/like-post.svg" alt="like post" />
+            <span>Like</span>
+          </button>
+          <button>
+            <img src="/images/comment-post.svg" alt="comment on post" />
+            <span>Comment</span>
+          </button>
+          <button>
+            <img src="/images/share-post.svg" alt="share post" />
+            <span>Share</span>
+          </button>
+          <button>
+            <img src="/images/send-post.svg" alt="send post" />
+            <span>Send</span>
+          </button>
+        </ReactToPost>
       </Article>
     </Container>
   );
@@ -214,12 +247,78 @@ const SharedPostInfo = styled.div`
   }
 `;
 
-const Description = styled.div``;
+const Description = styled.div`
+  color: rgba(0, 0, 0, 0.8);
+  font-size: 14px;
+  overflow: hidden;
+  padding: 0 16px;
+  text-align: left;
+`;
 
 const SharedImage = styled.div`
+  background-color: #f9fafb;
+  display: block;
+  position: relative;
+  margin-top: 8px;
+  width: 100%;
+
   img {
     object-fit: cover;
     width: 100%;
+  }
+`;
+
+const PostReactions = styled.ul`
+  display: flex;
+  align-items: center;
+  line-height: 1.3;
+  overflow: auto;
+  padding: 8px 0;
+  list-style-type: none;
+
+  li {
+    font-size: 12px;
+    margin-right: 4px;
+
+    button {
+      background: transparent;
+      border: none;
+      display: flex;
+      align-items: center;
+      outline: none;
+
+      span {
+        font-size: 12px;
+      }
+    }
+  }
+`;
+
+const ReactToPost = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  padding: 4px 2px;
+  margin: 0 auto;
+
+  button {
+    background: transparent;
+    border: none;
+    display: flex;
+    align-items: center;
+    outline: none;
+
+    &:hover {
+      background-color: #0a66c211;
+    }
+
+    img {
+      margin-right: 4px;
+    }
+
+    span {
+      font-size: 13px;
+    }
   }
 `;
 

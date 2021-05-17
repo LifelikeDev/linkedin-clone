@@ -19,7 +19,7 @@ const LeftSide = () => {
           <AnchorTag>
             <div>
               <span>Connections</span>
-              <span>Expand your network. Add new connections</span>
+              <span>Grow your network</span>
             </div>
             <img src="/images/widget-icon.svg" alt="connections" />
           </AnchorTag>
