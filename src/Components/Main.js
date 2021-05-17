@@ -32,6 +32,28 @@ const Main = () => {
           </button>
         </div>
       </PostWrapper>
+
+      <Article>
+        <SharedPostInfo>
+          <AnchorTag>
+            <img src="/images/user.svg" alt="user profile icon" />
+            <div>
+              <span>Title</span>
+              <span>Info</span>
+              <span>Image</span>
+            </div>
+          </AnchorTag>
+          <button>
+            <img src="/images/ellipsis.svg" alt="ellipsis" />
+          </button>
+        </SharedPostInfo>
+
+        <Description>Some Description Here...</Description>
+
+        <SharedImage>
+          <img src="/images/shared-image.jpg" alt="Waters by a city" />
+        </SharedImage>
+      </Article>
     </Container>
   );
 };
@@ -40,9 +62,9 @@ const Container = styled.div`
   grid-area: main;
 `;
 
-// const AnchorTag = styled.a`
-//   text-decoration: none;
-// `;
+const AnchorTag = styled.a`
+  text-decoration: none;
+`;
 
 const CommonCard = styled.div`
   background-color: #fff;
@@ -123,6 +145,81 @@ const PostWrapper = styled(CommonCard)`
         }
       }
     }
+  }
+`;
+
+const Article = styled(CommonCard)`
+  padding: 0;
+  margin: 0 0 8px;
+  overflow: visible;
+`;
+
+const SharedPostInfo = styled.div`
+  display: flex;
+  align-items: center;
+  flex-wrap: nowrap;
+  padding: 12px 16px 0;
+  margin-bottom: 8px;
+
+  ${AnchorTag} {
+    display: flex;
+    flex-grow: 1;
+    margin-right: 12px;
+    overflow: hidden;
+
+    & > div {
+      display: flex;
+      flex-direction: column;
+      flex-grow: 1;
+      flex-basis: 0;
+      margin-left: 8px;
+      overflow: hidden;
+
+      span {
+        text-align: left;
+
+        &:first-child {
+          font-size: 14px;
+          font-weight: 700;
+        }
+
+        &:nth-child(n + 1) {
+          color: rgba(0, 0, 0, 0.7);
+          font-size: 13px;
+        }
+      }
+    }
+
+    img {
+      border-radius: 50%;
+      height: 48px;
+      width: 48px;
+    }
+  }
+
+  button {
+    background: transparent;
+    border: none;
+    position: absolute;
+    height: 30px;
+    top: 0;
+    right: 0;
+    opacity: 0.6;
+    width: 50px;
+
+    img {
+      height: 100%;
+      width: 100%;
+    }
+  }
+`;
+
+const Description = styled.div``;
+
+const SharedImage = styled.div`
+  img {
+    object-fit: cover;
+    width: 100%;
   }
 `;
 
