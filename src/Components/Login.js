@@ -1,10 +1,15 @@
 import React from "react";
 import { connect } from "react-redux";
+import { Redirect } from "react-router-dom";
 import styled from "styled-components";
+import { signInAPI } from "../actions/actions";
 
-const Login = (props) => {
+const Login = ({ signIn, user }) => {
   return (
     <Container>
+      {/* if user exists, redirect user to home page */}
+      {user && <Redirect to="/home" />}
+
       <Nav>
         <a href="/">
           <img src="/images/login-logo.svg" alt="Logo" />
@@ -19,7 +24,7 @@ const Login = (props) => {
           <div>
             <h1>Welcome to your professional community</h1>
             <Form>
-              <GoogleSignIn>
+              <GoogleSignIn onClick={signIn}>
                 <img src="/images/google.svg" alt="sign in with google" />
                 Sign in with Google
               </GoogleSignIn>
@@ -215,12 +220,16 @@ const GoogleSignIn = styled.button`
 
 // mapStateToProps
 const mapStateToProps = (state) => {
-  return {};
+  return {
+    user: state.userState.user,
+  };
 };
 
 // mapDispatchToProps
 const mapDispatchToProps = (dispatch) => {
-  return {};
+  return {
+    signIn: () => dispatch(signInAPI()),
+  };
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Login);
