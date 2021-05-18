@@ -298,6 +298,7 @@ const ReactToPost = styled.div`
   display: flex;
   align-items: center;
   justify-content: flex-start;
+  flex-wrap: wrap;
   padding: 4px 2px;
   margin: 0 auto;
 
