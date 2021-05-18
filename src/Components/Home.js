@@ -1,13 +1,16 @@
 import styled from "styled-components";
+import { connect } from "react-redux";
 
 import React from "react";
 import LeftSide from "./LeftSide";
 import Main from "./Main";
 import RightSide from "./RightSide";
+import { Redirect } from "react-router-dom";
 
-const Home = () => {
+const Home = ({ user }) => {
   return (
     <Container>
+      {!user && <Redirect to="/" />}
       <Content>
         <Section>
           <p>
@@ -25,8 +28,6 @@ const Home = () => {
     </Container>
   );
 };
-
-export default Home;
 
 const Container = styled.div`
   padding: 42px 0;
@@ -82,3 +83,11 @@ const Layout = styled.div`
     padding: 0 5px;
   }
 `;
+
+const mapStateToProps = (state) => {
+  return {
+    user: state.userState.user,
+  };
+};
+
+export default connect(mapStateToProps)(Home);

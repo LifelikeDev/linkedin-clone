@@ -1,8 +1,10 @@
-import styled from "styled-components";
-
 import React from "react";
+import { connect } from "react-redux";
+import styled from "styled-components";
+import { signOutAPI } from "../actions/actions";
 
-const Header = () => {
+const Header = ({ signOut, user }) => {
+  // console.log(user);
   return (
     <Component>
       <Content>
@@ -11,6 +13,7 @@ const Header = () => {
             <img src="/images/home-logo.svg" alt="LinkedIn Logo" />
           </a>
         </Logo>
+
         <Search>
           <div>
             <input type="text" placeholder="Search" />
@@ -19,6 +22,7 @@ const Header = () => {
             <img src="/images/search-icon.svg" alt="search icon" />
           </SearchIcon>
         </Search>
+
         <Nav>
           <NavWrapper>
             <NavList className="active">
@@ -27,24 +31,28 @@ const Header = () => {
                 <span>Home</span>
               </AnchorTag>
             </NavList>
+
             <NavList>
               <AnchorTag>
                 <img src="/images/nav-network.svg" alt="network icon" />
                 <span>My Network</span>
               </AnchorTag>
             </NavList>
+
             <NavList>
               <AnchorTag>
                 <img src="/images/nav-jobs.svg" alt="jobs icon" />
                 <span>Jobs</span>
               </AnchorTag>
             </NavList>
+
             <NavList>
               <AnchorTag>
                 <img src="/images/nav-messaging.svg" alt="messaging icon" />
                 <span>Messaging</span>
               </AnchorTag>
             </NavList>
+
             <NavList>
               <AnchorTag>
                 <img
@@ -54,9 +62,15 @@ const Header = () => {
                 <span>Notifications</span>
               </AnchorTag>
             </NavList>
+
             <UserIcon>
               <AnchorTag>
-                <img src="/images/user.svg" alt="user icon" />
+                {/* Check if user profile exits. If it does ? update the profile icon : use default */}
+                {user && user.photoURL ? (
+                  <img src={user.photoURL} alt="user profile icon" />
+                ) : (
+                  <img src="/images/user.svg" alt="user profile icon" />
+                )}
                 <span>
                   Me
                   <img src="/images/down-icon.svg" alt="dropdown icon" />
@@ -64,9 +78,10 @@ const Header = () => {
               </AnchorTag>
 
               <SignOut>
-                <AnchorTag>Sign Out</AnchorTag>
+                <AnchorTag onClick={signOut}>Sign Out</AnchorTag>
               </SignOut>
             </UserIcon>
+
             <WorkIcon>
               <AnchorTag>
                 <img src="/images/nav-work.svg" alt="work icon" />
@@ -82,8 +97,6 @@ const Header = () => {
     </Component>
   );
 };
-
-export default Header;
 
 const Component = styled.div`
   background-color: #fff;
@@ -202,8 +215,7 @@ const NavList = styled.li`
       width: 100%;
 
       @media (max-width: 768px) {
-        border-bottom: none;
-        border-top: 2px solid rgba(0, 0, 0, 0.9);
+        border-bottom: 4px solid rgba(0, 0, 0, 0.9);
       }
     }
   }
@@ -297,3 +309,19 @@ const UserIcon = styled(NavList)`
 const WorkIcon = styled(UserIcon)`
   border-left: 1px solid rgba(0, 0, 0, 0.08);
 `;
+
+// mapStateToProps
+const mapStateToProps = (state) => {
+  return {
+    user: state.userState.user,
+  };
+};
+
+// mapDispatchToProps
+const mapDispatchToProps = (dispatch) => {
+  return {
+    signOut: () => dispatch(signOutAPI()),
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Header);

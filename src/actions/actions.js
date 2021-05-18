@@ -7,14 +7,41 @@ const setUser = (payload) => ({
   user: payload,
 });
 
-// init sign in popup
+// sign user in functionality
 const signInAPI = () => {
   return (dispatch) => {
     auth
-      .signInWithPopup(provider)
+      .signInWithPopup(provider) // display popup when user chooses to sign in with Google
       .then((payload) => dispatch(setUser(payload)))
-      .catch((error) => alert(error.message));
+      .catch((error) => console.log(error.message));
+
+    console.log("signing user in");
   };
 };
 
-export { signInAPI };
+// get user authentication details
+
+const getAuthDetails = () => {
+  return (dispatch) => {
+    //   if user is authenticated, pass user information to the set user function declared above
+    auth.onAuthStateChanged((user) => {
+      if (user) {
+        dispatch(setUser(user));
+      }
+    });
+  };
+};
+
+// sign user out functionality
+const signOutAPI = () => {
+  return (dispatch) => {
+    auth
+      .signOut()
+      .then(() => dispatch(setUser(null)))
+      .catch((error) => console.log(error.message));
+
+    console.log("signing user out");
+  };
+};
+
+export { signInAPI, getAuthDetails, signOutAPI };

@@ -1,12 +1,17 @@
 import React from "react";
+import { connect } from "react-redux";
 import styled from "styled-components";
 
-const Main = () => {
+const Main = ({ user }) => {
   return (
     <Container>
       <PostWrapper>
         <div>
-          <img src="/images/user.svg" alt="Write a post" />
+          {user && user.photoURL ? (
+            <img src={user.photoURL} alt="user profile icon" />
+          ) : (
+            <img src="/images/user.svg" alt="user profile icon" />
+          )}
           <input type="text" placeholder="Write a post" />
         </div>
 
@@ -36,7 +41,11 @@ const Main = () => {
       <Article>
         <SharedPostInfo>
           <AnchorTag>
-            <img src="/images/user.svg" alt="user profile icon" />
+            {user && user.photoURL ? (
+              <img src={user.photoURL} alt="user profile icon" />
+            ) : (
+              <img src="/images/user.svg" alt="user profile icon" />
+            )}
             <div>
               <span>Title</span>
               <span>Info</span>
@@ -323,4 +332,10 @@ const ReactToPost = styled.div`
   }
 `;
 
-export default Main;
+const mapStateToProps = (state) => {
+  return {
+    user: state.userState.user,
+  };
+};
+
+export default connect(mapStateToProps)(Main);
