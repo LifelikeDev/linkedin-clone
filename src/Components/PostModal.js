@@ -1,8 +1,12 @@
 import React, { useState } from "react";
 import styled from "styled-components";
+import ReactPlayer from "react-player";
 
 const PostModal = ({ modalState, setModalState }) => {
   const [postText, setPostText] = useState("");
+  const [shareImage, setShareImage] = useState("");
+  const [videoLink, setVideoLink] = useState("");
+  const [assetArea, setAssetArea] = useState("");
 
   // const reset = (e) => {
   //   setPostText("");
@@ -11,14 +15,36 @@ const PostModal = ({ modalState, setModalState }) => {
   //   toggleModal(e);
   // };
 
+  // hide modal function
   const hideModal = (e) => {
     e.preventDefault();
 
     setPostText("");
-
+    setShareImage("");
+    setVideoLink("");
+    setAssetArea("");
     setModalState("close");
 
     console.log("hideModal invoked...");
+  };
+
+  // share image function
+  const imageShare = (e) => {
+    const image = e.target.files[0];
+
+    if (image === "" || image === undefined) {
+      alert(`Could not upload image. The file is a ${typeof image}`);
+      return;
+    }
+
+    setShareImage(image);
+  };
+
+  // switch asset area function
+  const switchAssetArea = (area) => {
+    setShareImage("");
+    setVideoLink("");
+    setAssetArea(area);
   };
 
   return (
@@ -45,28 +71,66 @@ const PostModal = ({ modalState, setModalState }) => {
                   onChange={(e) => setPostText(e.target.value)}
                   placeholder="What do you want to talk about?"
                   autoFocus={true}
-                ></textarea>
+                />
+
+                {assetArea === "image" ? (
+                  <UploadImage>
+                    <input
+                      type="file"
+                      name="image"
+                      id="file"
+                      accept="image/gif, image/jpeg, image/png"
+                      onChange={imageShare}
+                    />
+                    {shareImage && (
+                      <img
+                        src={URL.createObjectURL(shareImage)}
+                        alt="uploaded file"
+                      />
+                    )}
+                  </UploadImage>
+                ) : (
+                  assetArea === "video" && (
+                    <UploadVideo>
+                      <input
+                        type="text"
+                        placeholder="Enter a video link eg. https://youtube.com"
+                        value={videoLink}
+                        onChange={(e) => setVideoLink(e.target.value)}
+                      />
+                      {videoLink && (
+                        <ReactPlayer
+                          width={"90%"}
+                          style={{ margin: "0 auto" }}
+                          url={videoLink}
+                        />
+                      )}
+                    </UploadVideo>
+                  )
+                )}
               </TextField>
             </ShareContent>
 
             <ShareOptions>
               <AttachAssets>
-                <AssetButtons>
+                <AssetButton onClick={() => switchAssetArea("image")}>
                   <img src="/images/share-image.svg" alt="share photos" />
-                </AssetButtons>
-                <AssetButtons>
+                </AssetButton>
+                <AssetButton onClick={() => switchAssetArea("video")}>
                   <img src="/images/share-multimedia.svg" alt="share videos" />
-                </AssetButtons>
+                </AssetButton>
               </AttachAssets>
 
               <ShareComment>
-                <AssetButtons>
+                <AssetButton>
                   <img src="/images/comment-post.svg" alt="add comment" />
                   <span>Anyone</span>
-                </AssetButtons>
+                </AssetButton>
               </ShareComment>
 
-              <PostContent>Post</PostContent>
+              <PostContent disabled={!postText ? true : false}>
+                Post
+              </PostContent>
             </ShareOptions>
           </Content>
         </Container>
@@ -174,7 +238,7 @@ const AttachAssets = styled.div`
   padding-right: 8px;
 `;
 
-const AssetButtons = styled.button`
+const AssetButton = styled.button`
   background: transparent;
   border: none;
   cursor: pointer;
@@ -200,7 +264,7 @@ const ShareComment = styled.div`
   padding-left: 8px;
   margin-right: auto;
 
-  ${AssetButtons} {
+  ${AssetButton} {
     img {
       margin-right: 5px;
       height: 18px;
@@ -210,22 +274,25 @@ const ShareComment = styled.div`
 `;
 
 const PostContent = styled.button`
-  background-color: #0a66c2;
+  background-color: ${(props) =>
+    props.disabled ? "rgba(0, 0, 0, 0.4)" : "#0a66c2"};
   border: none;
   border-radius: 25px;
-  color: #fff;
-  cursor: pointer;
+  color: ${(props) => (props.disabled ? "rgba(0, 0, 0, .4)" : "#fff")};
+  cursor: ${(props) => (props.disabled ? "not-allowed" : "pointer")};
   padding: 8px 20px;
   outline: none;
   min-width: 60px;
 
   &:hover {
-    background-color: #004182;
+    background-color: ${(props) =>
+      props.disabled ? "rgba(0, 0, 0, 0.4)" : "#004182"};
   }
 `;
 
 const TextField = styled.div`
   display: flex;
+  flex-direction: column;
   align-items: center;
   width: 100%;
 
@@ -235,6 +302,35 @@ const TextField = styled.div`
     min-height: 80px;
     resize: none;
     width: 90%;
+  }
+`;
+
+const UploadImage = styled.div`
+  text-align: center;
+  margin: 10px auto 0;
+
+  img {
+    margin: 0 auto;
+    width: 90%;
+  }
+
+  input {
+    display: block;
+    margin: 0 auto 10px;
+    width: 80%;
+  }
+`;
+
+const UploadVideo = styled.div`
+  text-align: center;
+  margin: 10px auto 0;
+  width: 90%;
+
+  input {
+    display: block;
+    padding: 4px 6px;
+    margin: 0 auto 10px;
+    width: 80%;
   }
 `;
 
