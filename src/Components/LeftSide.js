@@ -1,7 +1,8 @@
 import React from "react";
+import { connect } from "react-redux";
 import styled from "styled-components";
 
-const LeftSide = () => {
+const LeftSide = ({ user }) => {
   return (
     <Container>
       <ArtCard>
@@ -9,7 +10,7 @@ const LeftSide = () => {
           <CardBackground />
           <AnchorTag>
             <Photo />
-            <Link>Welcome, there!</Link>
+            <Link>Welcome, {user ? `${user.displayName}` : "there!"}</Link>
           </AnchorTag>
           <AnchorTag>
             <AddPhotoText>Add a photo</AddPhotoText>
@@ -215,4 +216,10 @@ const CommunityCard = styled(ArtCard)`
   }
 `;
 
-export default LeftSide;
+const mapStateToProps = (state) => {
+  return {
+    user: state.userState.user,
+  };
+};
+
+export default connect(mapStateToProps)(LeftSide);

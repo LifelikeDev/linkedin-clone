@@ -280,6 +280,16 @@ const SignOut = styled.div`
     background-color: #eee;
     transition: none;
   }
+
+  @media (max-width: 768px) {
+    background-color: #eee;
+    top: -45px;
+
+    &:hover {
+      background-color: #ddd;
+    }
+    /* bottom: 45px; */
+  }
 `;
 
 // UserIcon

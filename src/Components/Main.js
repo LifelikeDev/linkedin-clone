@@ -1,18 +1,50 @@
-import React from "react";
+import React, { useState } from "react";
 import { connect } from "react-redux";
 import styled from "styled-components";
+import PostModal from "./PostModal";
 
 const Main = ({ user }) => {
+  const [modalState, setModalState] = useState("close");
+
+  // const toggleModal = (e) => {
+  //   e.preventDefault();
+
+  //   console.log(e, e.target);
+
+  //   if (e.target !== e.currentTarget) {
+  //     return;
+  //   }
+
+  //   switch (modalState) {
+  //     case "open":
+  //       setModalState("close");
+  //       break;
+  //     case "close":
+  //       setModalState("open");
+  //       break;
+  //     default:
+  //       setModalState("close");
+  //       break;
+  //   }
+  // };
+
+  const revealModal = (e) => {
+    e.preventDefault();
+
+    console.log("revealModal called");
+    setModalState("open");
+  };
+
   return (
     <Container>
-      <PostWrapper>
+      <PostItemWrapper>
         <div>
           {user && user.photoURL ? (
             <img src={user.photoURL} alt="user profile icon" />
           ) : (
             <img src="/images/user.svg" alt="user profile icon" />
           )}
-          <input type="text" placeholder="Write a post" />
+          <input onFocus={(e) => revealModal(e)} placeholder="Write a post" />
         </div>
 
         <div>
@@ -36,7 +68,7 @@ const Main = ({ user }) => {
             <span>Write Article</span>
           </button>
         </div>
-      </PostWrapper>
+      </PostItemWrapper>
 
       <Article>
         <SharedPostInfo>
@@ -96,6 +128,8 @@ const Main = ({ user }) => {
           </button>
         </ReactToPost>
       </Article>
+
+      <PostModal modalState={modalState} setModalState={setModalState} />
     </Container>
   );
 };
@@ -118,7 +152,7 @@ const CommonCard = styled.div`
   text-align: center;
 `;
 
-const PostWrapper = styled(CommonCard)`
+const PostItemWrapper = styled(CommonCard)`
   background-color: #fff;
   color: #958b7b;
   display: flex;
