@@ -1,6 +1,6 @@
 import { auth, provider, storage } from "../firebase/firebase";
 import db from "../firebase/firebase";
-import { SET_LOADING_STATUS, SET_USER } from "./actionTypes";
+import { GET_ARTICLES, SET_LOADING_STATUS, SET_USER } from "./actionTypes";
 
 // set user
 const setUser = (payload) => ({
@@ -93,7 +93,7 @@ const postMediaAPI = (payload) => {
             video: payload.video,
             sharedImg: downloadURL,
             comments: 0,
-            description: payload.description,
+            content: payload.description,
           });
 
           dispatch(setLoading(false));
@@ -110,7 +110,7 @@ const postMediaAPI = (payload) => {
         video: payload.video,
         sharedImg: "",
         comments: 0,
-        description: payload.description,
+        content: payload.description,
       });
 
       dispatch(setLoading(false));
@@ -118,8 +118,16 @@ const postMediaAPI = (payload) => {
   };
 };
 
+// show articles
+const displayArticles = (payload) => {
+  return {
+    type: GET_ARTICLES,
+    payload: payload,
+  };
+};
+
 // fetch articles from database
-const getArticlesAPI = () => {
+const fetchArticlesAPI = () => {
   return (dispatch) => {
     let payload;
 
@@ -127,7 +135,7 @@ const getArticlesAPI = () => {
       .orderBy("actor.date", "desc") // sort in a descending manner according to the date
       .onSnapshot((snapshot) => {
         payload = snapshot.docs.map((doc) => doc.data());
-        console.log(payload);
+        dispatch(displayArticles(payload));
       });
   };
 };
@@ -137,6 +145,7 @@ export {
   getAuthDetails,
   signOutAPI,
   postMediaAPI,
-  getArticlesAPI,
+  fetchArticlesAPI,
   setLoading,
+  displayArticles,
 };

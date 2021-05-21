@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from "react";
+import ReactPlayer from "react-player";
 import { connect } from "react-redux";
 import styled from "styled-components";
-import { getArticlesAPI } from "../actions/actions";
+import { fetchArticlesAPI } from "../actions/actions";
 import PostModal from "./PostModal";
 
-const Main = ({ user, loading, getArticles }) => {
+const Main = ({ user, loading, articles, fetchArticles }) => {
   const [modalState, setModalState] = useState("close");
 
   const revealModal = (e) => {
@@ -15,7 +16,7 @@ const Main = ({ user, loading, getArticles }) => {
   };
 
   useEffect(() => {
-    getArticles();
+    fetchArticles();
   }, []);
 
   return (
@@ -57,72 +58,102 @@ const Main = ({ user, loading, getArticles }) => {
         </div>
       </PostItemWrapper>
 
-      {loading && (
-        <LoadSpinner>
-          <img src="/images/spin-loader-animated.svg" alt="loading animation" />
-        </LoadSpinner>
+      {articles.length === 0 ? (
+        <NoPosts>
+          <p>
+            There are no posts at the moment. Add a post to display it here.
+          </p>
+        </NoPosts>
+      ) : (
+        <>
+          {loading && (
+            <LoadSpinner>
+              <img
+                src="/images/spin-loader-animated.svg"
+                alt="loading animation"
+              />
+            </LoadSpinner>
+          )}
+
+          {articles.map((article, index) => {
+            const {
+              actor: { title, description, date, image },
+              content,
+              sharedImg,
+              video,
+              comments,
+            } = article;
+            return (
+              <Article key={index}>
+                <SharedPostInfo>
+                  <AnchorTag>
+                    <img src={image} alt="user profile icon" />
+                    <div>
+                      <span>{title}</span>
+                      <span>{description}</span>
+                      <span>{date.toDate().toLocaleDateString()}</span>
+                    </div>
+                  </AnchorTag>
+                  <button>
+                    <img src="/images/ellipsis.svg" alt="ellipsis" />
+                  </button>
+                </SharedPostInfo>
+
+                <Description>{content}</Description>
+
+                <SharedImage>
+                  {!sharedImg && video ? (
+                    <ReactPlayer width={"100%"} url={video} />
+                  ) : (
+                    sharedImg && (
+                      <img src={sharedImg} alt="post content" loading="lazy" />
+                    )
+                  )}
+                </SharedImage>
+
+                <PostReactions>
+                  <li>
+                    <button>
+                      <img src="/images/likes.svg" alt="likes" />
+                      <img src="/images/reactions.svg" alt="reactions" />
+                      <img src="/images/love-reaction.svg" alt="loves" />
+                      <span>{comments}</span>
+                    </button>
+                  </li>
+                  <li>
+                    <AnchorTag>
+                      {comments > 0
+                        ? `${comments} comments`
+                        : `${comments} comment`}
+                    </AnchorTag>
+                  </li>
+                </PostReactions>
+
+                <ReactToPost>
+                  <button>
+                    <img src="/images/like-post.svg" alt="like post" />
+                    <span>Like</span>
+                  </button>
+                  <button>
+                    <img src="/images/comment-post.svg" alt="comment on post" />
+                    <span>Comment</span>
+                  </button>
+                  <button>
+                    <img src="/images/share-post.svg" alt="share post" />
+                    <span>Share</span>
+                  </button>
+                  <button>
+                    <img src="/images/send-post.svg" alt="send post" />
+                    <span>Send</span>
+                  </button>
+                </ReactToPost>
+              </Article>
+            );
+          })}
+
+          <PostModal modalState={modalState} setModalState={setModalState} />
+        </>
       )}
-
-      <Article>
-        <SharedPostInfo>
-          <AnchorTag>
-            {user && user.photoURL ? (
-              <img src={user.photoURL} alt="user profile icon" />
-            ) : (
-              <img src="/images/user.svg" alt="user profile icon" />
-            )}
-            <div>
-              <span>Title</span>
-              <span>Info</span>
-              <span>Image</span>
-            </div>
-          </AnchorTag>
-          <button>
-            <img src="/images/ellipsis.svg" alt="ellipsis" />
-          </button>
-        </SharedPostInfo>
-
-        <Description>Some Description Here...</Description>
-
-        <SharedImage>
-          <img src="/images/shared-image.jpg" alt="Waters by a city" />
-        </SharedImage>
-
-        <PostReactions>
-          <li>
-            <button>
-              <img src="/images/likes.svg" alt="likes" />
-              <img src="/images/reactions.svg" alt="reactions" />
-              <img src="/images/love-reaction.svg" alt="loves" />
-              <span>24</span>
-            </button>
-          </li>
-          <li>
-            <AnchorTag>5 comments </AnchorTag>
-          </li>
-        </PostReactions>
-
-        <ReactToPost>
-          <button>
-            <img src="/images/like-post.svg" alt="like post" />
-            <span>Like</span>
-          </button>
-          <button>
-            <img src="/images/comment-post.svg" alt="comment on post" />
-            <span>Comment</span>
-          </button>
-          <button>
-            <img src="/images/share-post.svg" alt="share post" />
-            <span>Share</span>
-          </button>
-          <button>
-            <img src="/images/send-post.svg" alt="send post" />
-            <span>Send</span>
-          </button>
-        </ReactToPost>
-      </Article>
-
-      <PostModal modalState={modalState} setModalState={setModalState} />
     </Container>
   );
 };
@@ -217,9 +248,22 @@ const PostItemWrapper = styled(CommonCard)`
   }
 `;
 
+const NoPosts = styled.div`
+  margin: 50px 0 10px;
+
+  & > p {
+    color: #888;
+    font-size: 14px;
+    font-weight: 600;
+    letter-spacing: 1px;
+    line-height: 1.5;
+    text-align: center;
+  }
+`;
+
 const Article = styled(CommonCard)`
   padding: 0;
-  margin: 0 0 8px;
+  margin: 0 0 14px;
   overflow: visible;
 `;
 
@@ -265,7 +309,8 @@ const SharedPostInfo = styled.div`
 
         &:nth-child(n + 1) {
           color: rgba(0, 0, 0, 0.7);
-          font-size: 13px;
+          font-size: 12px;
+          margin-bottom: 4px;
         }
       }
     }
@@ -296,7 +341,7 @@ const SharedPostInfo = styled.div`
 
 const Description = styled.div`
   color: rgba(0, 0, 0, 0.8);
-  font-size: 14px;
+  font-size: 15px;
   overflow: hidden;
   padding: 0 16px;
   text-align: left;
@@ -324,8 +369,14 @@ const PostReactions = styled.ul`
   list-style-type: none;
 
   li {
+    /* border: 1px solid blue; */
     font-size: 12px;
     margin-right: 4px;
+    vertical-align: baseline;
+
+    &:last-of-type {
+      line-height: 1.4;
+    }
 
     button {
       background: transparent;
@@ -380,7 +431,7 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    getArticles: () => dispatch(getArticlesAPI()),
+    fetchArticles: () => dispatch(fetchArticlesAPI()),
   };
 };
 
