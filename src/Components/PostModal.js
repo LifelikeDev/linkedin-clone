@@ -135,10 +135,10 @@ const PostModal = ({ modalState, setModalState, user, postAnArticle }) => {
             <ShareOptions>
               <AttachAssets>
                 <AssetButton onClick={() => switchAssetArea("image")}>
-                  <img src="/images/share-image.svg" alt="share photos" />
+                  <img src="/images/image-icon.svg" alt="share photos" />
                 </AssetButton>
                 <AssetButton onClick={() => switchAssetArea("video")}>
-                  <img src="/images/share-multimedia.svg" alt="share videos" />
+                  <img src="/images/video-icon.svg" alt="share videos" />
                 </AssetButton>
               </AttachAssets>
 
@@ -249,13 +249,6 @@ const UserInfo = styled.div`
   }
 `;
 
-const ShareOptions = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 12px 20px;
-`;
-
 const AttachAssets = styled.div`
   display: flex;
   align-items: center;
@@ -274,13 +267,19 @@ const AssetButton = styled.button`
   img {
     height: 30px;
     width: 25px;
-    opacity: 0.6;
   }
 
   span {
     cursor: default;
     font-size: 12px;
   }
+`;
+
+const ShareOptions = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 20px;
 `;
 
 const ShareComment = styled.div`
@@ -292,6 +291,7 @@ const ShareComment = styled.div`
     img {
       margin-right: 5px;
       height: 18px;
+      opacity: 0.5;
       width: 18px;
     }
   }

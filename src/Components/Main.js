@@ -1,39 +1,22 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { connect } from "react-redux";
 import styled from "styled-components";
+import { getArticlesAPI } from "../actions/actions";
 import PostModal from "./PostModal";
 
-const Main = ({ user }) => {
+const Main = ({ user, loading, getArticles }) => {
   const [modalState, setModalState] = useState("close");
-
-  // const toggleModal = (e) => {
-  //   e.preventDefault();
-
-  //   console.log(e, e.target);
-
-  //   if (e.target !== e.currentTarget) {
-  //     return;
-  //   }
-
-  //   switch (modalState) {
-  //     case "open":
-  //       setModalState("close");
-  //       break;
-  //     case "close":
-  //       setModalState("open");
-  //       break;
-  //     default:
-  //       setModalState("close");
-  //       break;
-  //   }
-  // };
 
   const revealModal = (e) => {
     e.preventDefault();
 
-    console.log("revealModal called");
+    console.log("revealModal called...");
     setModalState("open");
   };
+
+  useEffect(() => {
+    getArticles();
+  }, []);
 
   return (
     <Container>
@@ -44,7 +27,11 @@ const Main = ({ user }) => {
           ) : (
             <img src="/images/user.svg" alt="user profile icon" />
           )}
-          <input onFocus={(e) => revealModal(e)} placeholder="Write a post" />
+          <input
+            onFocus={(e) => revealModal(e)}
+            placeholder="Write a post"
+            disabled={loading ? true : false}
+          />
         </div>
 
         <div>
@@ -69,6 +56,12 @@ const Main = ({ user }) => {
           </button>
         </div>
       </PostItemWrapper>
+
+      {loading && (
+        <LoadSpinner>
+          <img src="/images/spin-loader-animated.svg" alt="loading animation" />
+        </LoadSpinner>
+      )}
 
       <Article>
         <SharedPostInfo>
@@ -230,6 +223,17 @@ const Article = styled(CommonCard)`
   overflow: visible;
 `;
 
+const LoadSpinner = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 8px;
+
+  img {
+    width: 40px;
+  }
+`;
+
 const SharedPostInfo = styled.div`
   display: flex;
   align-items: center;
@@ -369,7 +373,15 @@ const ReactToPost = styled.div`
 const mapStateToProps = (state) => {
   return {
     user: state.userState.user,
+    loading: state.articleState.loading,
+    articles: state.articleState.articles,
   };
 };
 
-export default connect(mapStateToProps)(Main);
+const mapDispatchToProps = (dispatch) => {
+  return {
+    getArticles: () => dispatch(getArticlesAPI()),
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Main);

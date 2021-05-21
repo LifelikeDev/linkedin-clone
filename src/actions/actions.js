@@ -1,12 +1,20 @@
 import { auth, provider, storage } from "../firebase/firebase";
 import db from "../firebase/firebase";
-import { SET_USER } from "./actionTypes";
+import { SET_LOADING_STATUS, SET_USER } from "./actionTypes";
 
 // set user
 const setUser = (payload) => ({
   type: SET_USER,
   user: payload,
 });
+
+// set activity loading
+const setLoading = (status) => {
+  return {
+    type: SET_LOADING_STATUS,
+    status: status,
+  };
+};
 
 // sign user in functionality
 const signInAPI = () => {
@@ -48,6 +56,9 @@ const signOutAPI = () => {
 // post media functionality
 const postMediaAPI = (payload) => {
   return (dispatch) => {
+    // set activity loading before image is updated on the UI
+    dispatch(setLoading(true));
+    // check for image or video
     if (payload.image !== "") {
       const uploadFunc = storage
         .ref(`images/${payload.image.name}`)
@@ -84,6 +95,8 @@ const postMediaAPI = (payload) => {
             comments: 0,
             description: payload.description,
           });
+
+          dispatch(setLoading(false));
         }
       );
     } else if (payload.video) {
@@ -99,8 +112,31 @@ const postMediaAPI = (payload) => {
         comments: 0,
         description: payload.description,
       });
+
+      dispatch(setLoading(false));
     }
   };
 };
 
-export { signInAPI, getAuthDetails, signOutAPI, postMediaAPI };
+// fetch articles from database
+const getArticlesAPI = () => {
+  return (dispatch) => {
+    let payload;
+
+    db.collection("articles")
+      .orderBy("actor.date", "desc") // sort in a descending manner according to the date
+      .onSnapshot((snapshot) => {
+        payload = snapshot.docs.map((doc) => doc.data());
+        console.log(payload);
+      });
+  };
+};
+
+export {
+  signInAPI,
+  getAuthDetails,
+  signOutAPI,
+  postMediaAPI,
+  getArticlesAPI,
+  setLoading,
+};
