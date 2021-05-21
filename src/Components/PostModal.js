@@ -1,19 +1,15 @@
 import React, { useState } from "react";
+import { connect } from "react-redux";
 import styled from "styled-components";
 import ReactPlayer from "react-player";
+import firebase from "firebase/app";
+import { postMediaAPI } from "../actions/actions";
 
-const PostModal = ({ modalState, setModalState }) => {
+const PostModal = ({ modalState, setModalState, user, postAnArticle }) => {
   const [postText, setPostText] = useState("");
   const [shareImage, setShareImage] = useState("");
   const [videoLink, setVideoLink] = useState("");
   const [assetArea, setAssetArea] = useState("");
-
-  // const reset = (e) => {
-  //   setPostText("");
-
-  //   console.log(e);
-  //   toggleModal(e);
-  // };
 
   // hide modal function
   const hideModal = (e) => {
@@ -47,6 +43,26 @@ const PostModal = ({ modalState, setModalState }) => {
     setAssetArea(area);
   };
 
+  // post article function
+  const postArticle = (e) => {
+    e.preventDefault();
+
+    if (e.target !== e.currentTarget) {
+      return;
+    }
+
+    const payload = {
+      image: shareImage,
+      video: videoLink,
+      user: user,
+      description: postText,
+      timestamp: firebase.firestore.Timestamp.now(),
+    };
+
+    postAnArticle(payload);
+    hideModal(e);
+  };
+
   return (
     <>
       {modalState === "open" && (
@@ -61,8 +77,13 @@ const PostModal = ({ modalState, setModalState }) => {
 
             <ShareContent>
               <UserInfo>
-                <img src="/images/user.svg" alt="user profile icon" />
-                <span>name</span>
+                {user.photoURL ? (
+                  <img src={user.photoURL} alt="user profile icon" />
+                ) : (
+                  <img src="/images/user.svg" alt="user profile icon" />
+                )}
+
+                <span>{user.displayName}</span>
               </UserInfo>
 
               <TextField>
@@ -128,7 +149,10 @@ const PostModal = ({ modalState, setModalState }) => {
                 </AssetButton>
               </ShareComment>
 
-              <PostContent disabled={!postText ? true : false}>
+              <PostContent
+                disabled={!postText ? true : false}
+                onClick={(e) => postArticle(e)}
+              >
                 Post
               </PostContent>
             </ShareOptions>
@@ -334,4 +358,16 @@ const UploadVideo = styled.div`
   }
 `;
 
-export default PostModal;
+const mapStateToProps = (state) => {
+  return {
+    user: state.userState.user,
+  };
+};
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    postAnArticle: (payload) => dispatch(postMediaAPI(payload)),
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(PostModal);

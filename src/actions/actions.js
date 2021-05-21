@@ -1,4 +1,5 @@
-import { auth, provider } from "../firebase/firebase";
+import { auth, provider, storage } from "../firebase/firebase";
+import db from "../firebase/firebase";
 import { SET_USER } from "./actionTypes";
 
 // set user
@@ -44,4 +45,62 @@ const signOutAPI = () => {
   };
 };
 
-export { signInAPI, getAuthDetails, signOutAPI };
+// post media functionality
+const postMediaAPI = (payload) => {
+  return (dispatch) => {
+    if (payload.image !== "") {
+      const uploadFunc = storage
+        .ref(`images/${payload.image.name}`)
+        .put(payload.image);
+
+      // uploading image
+      uploadFunc.on(
+        "state_changed",
+        (snapshot) => {
+          const progress =
+            (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+          console.log(`Progress: ${progress}%`);
+
+          // show progress bar in console when image is being uploaded
+          if (snapshot.state === "RUNNING") {
+            console.log(`Progress: ${progress}%`);
+          }
+        },
+        (error) => console.log(error.code),
+        // handle post information in firebase database
+        async () => {
+          const downloadURL = await uploadFunc.snapshot.ref.getDownloadURL();
+
+          // add information to database
+          db.collection("articles").add({
+            actor: {
+              description: payload.user.email,
+              title: payload.user.displayName,
+              date: payload.timestamp,
+              image: payload.user.photoURL,
+            },
+            video: payload.video,
+            sharedImg: downloadURL,
+            comments: 0,
+            description: payload.description,
+          });
+        }
+      );
+    } else if (payload.video) {
+      db.collection("articles").add({
+        actor: {
+          description: payload.user.email,
+          title: payload.user.displayName,
+          date: payload.timestamp,
+          image: payload.user.photoURL,
+        },
+        video: payload.video,
+        sharedImg: "",
+        comments: 0,
+        description: payload.description,
+      });
+    }
+  };
+};
+
+export { signInAPI, getAuthDetails, signOutAPI, postMediaAPI };
