@@ -101,12 +101,15 @@ const Header = ({ signOut, user }) => {
 const Component = styled.div`
   background-color: #fff;
   border-bottom: 1px solid rgba(0, 0, 0, 0.08);
-  padding: 0 24px;
   position: fixed;
   top: 0;
   left: 0;
   width: 100vw;
   z-index: 100;
+
+  @media (max-width: 768px) {
+    padding: 0 12px;
+  }
 `;
 
 const AnchorTag = styled.a`
@@ -116,7 +119,9 @@ const AnchorTag = styled.a`
 const Content = styled.div`
   display: flex;
   align-items: center;
+  justify-content: center;
   margin: 0 auto;
+  width: 100%;
   max-width: 1128px;
   min-height: 100%;
 `;

@@ -12,22 +12,32 @@ const RightSide = () => {
 
         <FeedList>
           <li>
-            <AnchorTag>
-              <Avatar />
-            </AnchorTag>
-            <div>
-              <span>#LinkedIn</span>
-              <button>Follow</button>
-            </div>
+            <article>
+              <AnchorTag>
+                <Avatar />
+              </AnchorTag>
+              <div>
+                <span>#LinkedIn</span>
+                <button>
+                  <img src="/images/add-follow.svg" alt="follow" />
+                  Follow
+                </button>
+              </div>
+            </article>
           </li>
           <li>
-            <AnchorTag>
-              <Avatar />
-            </AnchorTag>
-            <div>
-              <span>#Video</span>
-              <button>Follow</button>
-            </div>
+            <article>
+              <AnchorTag>
+                <Avatar />
+              </AnchorTag>
+              <div>
+                <span>#Video</span>
+                <button>
+                  <img src="/images/add-follow.svg" alt="follow" />
+                  Follow
+                </button>
+              </div>
+            </article>
           </li>
         </FeedList>
 
@@ -38,11 +48,6 @@ const RightSide = () => {
       </FollowCard>
 
       <BannerCard>
-        {/* <img
-          src="https://static-exp1.licdn.com/scds/common/u/images/promo/ads/li_evergreen_jobs_ad_300x250_v1.jpg"
-          alt=""
-        /> */}
-
         <img src="/images/banner-card.jpg" alt="linkedin banner card" />
       </BannerCard>
     </Container>
@@ -88,32 +93,51 @@ const FeedList = styled.ul`
     margin: 12px 0;
     position: relative;
 
-    & > div {
+    & > article {
       display: flex;
       align-items: flex-start;
-      flex-direction: column;
+      margin-bottom: 8px;
 
-      span {
-        margin-bottom: 4px;
+      div {
+        display: flex;
+        align-items: flex-start;
+        justify-content: center;
+        flex-direction: column;
+        margin-left: 8px;
+
+        span {
+          margin-bottom: 8px;
+        }
+
+        button {
+          background-color: transparent;
+          border-width: 1px;
+          border-radius: 22px;
+          box-sizing: border-box;
+          box-shadow: inset 0 0 0 0 rgba(0, 0, 0, 0.6);
+          color: rgba(0, 0, 0, 0.6);
+          cursor: pointer;
+          display: inline-flex;
+          align-items: center;
+          justify-content: center;
+          font-weight: 600;
+          padding: 14px 10px;
+          max-height: 20px;
+          max-width: 420px;
+          text-align: center;
+          transition: 0.2s ease;
+          outline: none;
+
+          &:hover {
+            background-color: #f3f2ef;
+            border-width: 2px;
+          }
+
+          img {
+            padding-right: 4px;
+          }
+        }
       }
-    }
-
-    button {
-      background-color: transparent;
-      border-radius: 8px;
-      box-shadow: inset 0 0 0 0 rgba(0, 0, 0, 0.6);
-      box-sizing: border-box;
-      color: rgba(0, 0, 0, 0.6);
-      cursor: pointer;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      font-weight: 600;
-      padding: 12px;
-      max-height: 20px;
-      max-width: 420px;
-      text-align: center;
-      outline: none;
     }
   }
 `;
@@ -132,7 +156,7 @@ const Recommendation = styled.a`
   color: #0a66c2;
   cursor: pointer;
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   font-size: 13px;
 
   &:hover {

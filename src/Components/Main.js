@@ -177,12 +177,13 @@ const CommonCard = styled.div`
 `;
 
 const PostItemWrapper = styled(CommonCard)`
+  border-radius: 7px;
   background-color: #fff;
   color: #958b7b;
   display: flex;
   /* align-items: center; */
   flex-direction: column;
-  margin-bottom: 8px;
+  margin-bottom: 20px;
 
   div {
     button {

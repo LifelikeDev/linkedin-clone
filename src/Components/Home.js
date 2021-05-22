@@ -30,6 +30,7 @@ const Home = ({ user }) => {
 };
 
 const Container = styled.div`
+  background-color: #f3f2ef;
   padding: 42px 0;
   max-width: 100%;
 

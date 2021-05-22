@@ -27,8 +27,8 @@ const LeftSide = ({ user }) => {
         </Widget>
         <Item>
           <span>
-            My items
             <img src="/images/item-icon.svg" alt="add item" />
+            My items
           </span>
         </Item>
       </ArtCard>
@@ -63,8 +63,9 @@ const AnchorTag = styled.a`
 `;
 
 const ArtCard = styled.div`
+  background-color: #fff;
   border: none;
-  border-radius: 4px;
+  border-radius: 7px;
   box-shadow: 0 0 0 1px rgb(0 0 0 / 15%), 0 0 0 rgb(0 0 0/ 20%);
   text-align: center;
   /* overflow: hidden; */
@@ -119,7 +120,11 @@ const AddPhotoText = styled.div`
 
 const Widget = styled.div`
   border-bottom: 1px solid rgba(0, 0, 0, 0.15);
-  padding: 12px 0;
+  padding: 2px 0;
+
+  &:hover {
+    background-color: #f3f2ef;
+  }
 
   ${AnchorTag} {
     display: flex;
@@ -157,36 +162,40 @@ const Widget = styled.div`
 const Item = styled.a`
   border-color: rgba(0, 0, 0, 0.8);
   display: block;
-  font-size: 14px;
+  font-size: 13px;
   text-align: left;
   padding: 12px;
 
   span {
     display: flex;
-    align-items: flex-end;
-    /* align-content: flex-start; */
-    justify-content: space-between;
+    align-items: center;
     color: rgba(0, 0, 0, 1);
+
+    img {
+      padding-right: 8px;
+    }
   }
 
   &:hover {
-    background-color: rgba(0, 0, 0, 0.18);
+    background-color: #f3f2ef;
   }
 `;
 
 const CommunityCard = styled(ArtCard)`
+  background-color: #fff;
+  border-radius: 7px;
   display: flex;
   flex-direction: column;
   padding: 8px 0 0;
   text-align: left;
+  margin-top: 8px;
 
   ${AnchorTag} {
-    /* border-bottom: 1px solid rgba(0 0 0 / 5%); */
-    font-size: 14px;
+    font-size: 13px;
     padding: 4px 12px;
 
     &:hover {
-      background-color: #0a66c218;
+      background-color: #f3f2ef;
       color: #0a66c2;
       font-weight: 600;
     }
@@ -208,7 +217,7 @@ const CommunityCard = styled(ArtCard)`
       padding: 8px 12px 8px;
 
       &:hover {
-        background-color: rgba(0, 0, 0, 0.18);
+        background-color: #f3f2ef;
         color: rgba(0, 0, 0, 1);
         cursor: pointer;
       }
