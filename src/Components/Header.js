@@ -91,6 +91,13 @@ const Header = ({ signOut, user }) => {
                 </span>
               </AnchorTag>
             </WorkIcon>
+
+            <JobPost>
+              <AnchorTag>
+                <img src="/images/clothes-hanger.svg" alt="post a job" />
+                <span>Post a Job</span>
+              </AnchorTag>
+            </JobPost>
           </NavWrapper>
         </Nav>
       </Content>
@@ -129,12 +136,20 @@ const Content = styled.div`
 const Logo = styled.span`
   font-size: 0px;
   margin-right: 8px;
+
+  @media (max-width: 768px) {
+    padding-bottom: 3px;
+  }
 `;
 
 const Search = styled.div`
   flex-grow: 1;
   opacity: 1;
   position: relative;
+
+  @media (max-width: 768px) {
+    padding-bottom: 3px;
+  }
 
   & > div {
     max-width: 280px;
@@ -249,6 +264,7 @@ const NavList = styled.li`
       align-items: center;
 
       @media (max-width: 768px) {
+        display: none;
         line-height: 1;
       }
     }
@@ -331,6 +347,13 @@ const mapStateToProps = (state) => {
     user: state.userState.user,
   };
 };
+
+const JobPost = styled(NavList)`
+  ${AnchorTag} > img {
+    height: 26px;
+    width: 26px;
+  }
+`;
 
 // mapDispatchToProps
 const mapDispatchToProps = (dispatch) => {

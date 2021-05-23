@@ -12,13 +12,7 @@ const Home = ({ user }) => {
     <Container>
       {!user && <Redirect to="/" />}
       <Content>
-        <Section>
-          <p>
-            <span>Hiring in a hurry? </span>
-            Find talented Pros in record time with Upwork and keep business
-            moving
-          </p>
-        </Section>
+        <AdSection></AdSection>
         <Layout>
           <LeftSide />
           <Main />
@@ -44,29 +38,14 @@ const Content = styled.div`
   max-width: 1128px;
 `;
 
-const Section = styled.section`
+const AdSection = styled.section`
   box-sizing: content-box;
   display: flex;
   align-items: center;
   justify-content: center;
   padding: 10px 0;
   text-align: center;
-  min-height: 50px;
   text-decoration: underline;
-
-  p {
-    font-weight: 600;
-    line-height: 1.4;
-
-    span {
-      color: #0a66c2;
-      font-weight: 700;
-
-      @media (max-width: 768px) {
-        display: block;
-      }
-    }
-  }
 `;
 
 const Layout = styled.div`

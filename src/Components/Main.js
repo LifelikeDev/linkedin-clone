@@ -36,23 +36,23 @@ const Main = ({ user, loading, articles, fetchArticles }) => {
         </div>
 
         <div>
-          <button>
-            <img src="/images/image-icon.svg" alt="upload photos" />
+          <button onClick={(e) => revealModal(e)}>
+            <img src="/images/in-post-image.svg" alt="upload photos" />
             <span>Photo</span>
           </button>
 
-          <button>
-            <img src="/images/video-icon.svg" alt="upload video" />
+          <button onClick={(e) => revealModal(e)}>
+            <img src="/images/in-post-video.svg" alt="upload video" />
             <span>Video</span>
           </button>
 
-          <button>
-            <img src="/images/event-icon.svg" alt="add an event" />
+          <button onClick={(e) => revealModal(e)}>
+            <img src="/images/in-post-event.svg" alt="add an event" />
             <span>Event</span>
           </button>
 
-          <button>
-            <img src="/images/article-icon.svg" alt="add an article" />
+          <button onClick={(e) => revealModal(e)}>
+            <img src="/images/in-write-article.svg" alt="add an article" />
             <span>Write Article</span>
           </button>
         </div>
@@ -304,12 +304,13 @@ const SharedPostInfo = styled.div`
         text-align: left;
 
         &:first-child {
+          color: rgba(0, 0, 0, 0.9);
           font-size: 14px;
           font-weight: 700;
         }
 
         &:nth-child(n + 1) {
-          color: rgba(0, 0, 0, 0.7);
+          color: rgba(0, 0, 0, 0.5);
           font-size: 12px;
           margin-bottom: 4px;
         }

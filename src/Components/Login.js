@@ -3,6 +3,7 @@ import { connect } from "react-redux";
 import { Redirect } from "react-router-dom";
 import styled from "styled-components";
 import { signInAPI } from "../actions/actions";
+import Footer from "./Footer";
 
 const Login = ({ signIn, user }) => {
   return (
@@ -39,6 +40,7 @@ const Login = ({ signIn, user }) => {
           </div>
         </Hero>
       </Section>
+      <Footer />
     </Container>
   );
 };
