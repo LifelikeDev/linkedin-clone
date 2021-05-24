@@ -50,6 +50,31 @@ const RightSide = () => {
       <BannerCard>
         <img src="/images/banner-card.jpg" alt="linkedin banner card" />
       </BannerCard>
+
+      <SiteMap>
+        <List>
+          <ListItem>About</ListItem>
+          <ListItem>Accessibility</ListItem>
+          <ListItem>Help Center</ListItem>
+          <ListItem>
+            <span>Privacy &amp; Terms</span>
+            <img src="/images/footer-dropdown.svg" alt="Privacy and Terms" />
+          </ListItem>
+          <ListItem>Ad Choices</ListItem>
+          <ListItem>Advertising</ListItem>
+          <ListItem>
+            <span>Business Services</span>
+            <img src="/images/footer-dropdown.svg" alt="Business Services" />
+          </ListItem>
+          <ListItem>Get the LinkedIn app</ListItem>
+          <ListItem>More</ListItem>
+        </List>
+        <CopyInfo>
+          <img src="/images/login-logo.svg" alt="LinkedIn" />
+          <span>LinkedIn Corporation</span>
+          <span>&copy; 2021</span>
+        </CopyInfo>
+      </SiteMap>
     </Container>
   );
 };
@@ -170,9 +195,73 @@ const Recommendation = styled.a`
 
 const BannerCard = styled(FollowCard)`
   cursor: pointer;
+  padding: 0 6px;
+  margin-bottom: 20px;
+
   img {
     height: 100%;
     width: 100%;
+  }
+`;
+
+const SiteMap = styled.div`
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  justify-content: center;
+`;
+
+const List = styled.ul`
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  list-style-type: none;
+  margin: 0 auto 20px;
+  width: 75%;
+
+  * + * {
+    margin-left: 18px;
+  }
+`;
+
+const ListItem = styled.li`
+  color: rgba(0, 0, 0, 0.6);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+  font-weight: 600;
+  line-height: 2;
+
+  * + * {
+    margin-left: 4px;
+    width: 10px;
+  }
+
+  &:hover {
+    color: #0a66c2;
+    cursor: pointer;
+    text-decoration: underline;
+  }
+`;
+
+const CopyInfo = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  vertical-align: baseline;
+
+  img {
+    width: 56px;
+  }
+
+  span {
+    font-size: 12px;
+  }
+
+  * + * {
+    margin-left: 4px;
   }
 `;
 

@@ -30,7 +30,7 @@ const Main = ({ user, loading, articles, fetchArticles }) => {
           )}
           <input
             onFocus={(e) => revealModal(e)}
-            placeholder="Write a post"
+            placeholder="Start a post"
             disabled={loading ? true : false}
           />
         </div>
@@ -367,7 +367,7 @@ const PostReactions = styled.ul`
   align-items: center;
   line-height: 1.3;
   overflow: auto;
-  padding: 8px 0;
+  padding: 8px 10px;
   list-style-type: none;
 
   li {
@@ -395,22 +395,26 @@ const PostReactions = styled.ul`
 `;
 
 const ReactToPost = styled.div`
+  border-top: 1px solid rgba(0, 0, 0, 0.18);
   display: flex;
   align-items: center;
   justify-content: flex-start;
   flex-wrap: wrap;
-  padding: 4px 2px;
-  margin: 0 auto;
+  padding: 6px 2px;
+  margin: 0 10px;
 
   button {
     background: transparent;
+    border-radius: 6px;
     border: none;
+    cursor: pointer;
     display: flex;
     align-items: center;
+    padding: 10px 5px;
     outline: none;
 
     &:hover {
-      background-color: #0a66c211;
+      background-color: #eee;
     }
 
     img {
