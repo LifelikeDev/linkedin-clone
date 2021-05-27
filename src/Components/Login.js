@@ -49,6 +49,10 @@ const Container = styled.div`
   box-sizing: border-box;
   padding: 0;
   width: 100vw;
+
+  @media (max-width: 1200px) {
+    padding: 0 20px;
+  }
 `;
 
 const Nav = styled.nav`
@@ -61,11 +65,22 @@ const Nav = styled.nav`
   padding: 12px 10px 16px;
   position: relative;
 
+  @media (max-width: 1128px) {
+    flex-wrap: wrap;
+    padding: 12px 0 16px;
+  }
+
   & > a {
     width: 135px;
     height: 34px;
 
+    @media (max-width: 1200px) {
+      width: 80px;
+      height: 20px;
+    }
+
     @media (max-width: 768px) {
+      flex-wrap: wrap;
       padding: 0 5px;
     }
   }
@@ -76,13 +91,18 @@ const Join = styled.a`
   color: rgba(0, 0, 0, 0.7);
   cursor: pointer;
   font-size: 16px;
-  padding: 10px 12px;
+  font-weight: 600;
+  padding: 10px 8px;
   margin: 0 8px 0 0;
   text-decoration: none;
 
   &:hover {
     background-color: rgba(0, 0, 0, 0.1);
     color: rgba(0, 0, 0, 0.9);
+  }
+
+  @media (max-width: 1200px) {
+    font-size: 15px;
   }
 `;
 
@@ -103,6 +123,10 @@ const SignIn = styled.a`
 
   &:hover {
     background-color: rgba(112, 181, 249, 0.1);
+  }
+
+  @media (max-width: 1200px) {
+    font-size: 15px;
   }
 `;
 
