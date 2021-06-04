@@ -1,3 +1,10 @@
+# LinkedIn Clone
+A clone of the desktop version of LinkedIn built with React, Redux, Styled Components and Firebase tools. The app was hosted on Firebase.
+
+Find the deployed app [here](https://linkedin-clone-f9c36.web.app)
+
+<br>
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
