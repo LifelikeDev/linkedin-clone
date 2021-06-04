@@ -23,8 +23,6 @@ const signInAPI = () => {
       .signInWithPopup(provider) // display popup when user chooses to sign in with Google
       .then((payload) => dispatch(setUser(payload)))
       .catch((error) => console.log(error.message));
-
-    console.log("signing user in");
   };
 };
 
@@ -48,8 +46,6 @@ const signOutAPI = () => {
       .signOut()
       .then(() => dispatch(setUser(null)))
       .catch((error) => console.log(error.message));
-
-    console.log("signing user out");
   };
 };
 

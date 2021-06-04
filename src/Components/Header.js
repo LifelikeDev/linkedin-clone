@@ -4,7 +4,6 @@ import styled from "styled-components";
 import { signOutAPI } from "../actions/actions";
 
 const Header = ({ signOut, user }) => {
-  // console.log(user);
   return (
     <Component>
       <Content>
@@ -309,7 +308,6 @@ const SignOut = styled.div`
     &:hover {
       background-color: #ddd;
     }
-    /* bottom: 45px; */
   }
 `;
 

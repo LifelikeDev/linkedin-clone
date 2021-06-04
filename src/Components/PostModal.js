@@ -20,8 +20,6 @@ const PostModal = ({ modalState, setModalState, user, postAnArticle }) => {
     setVideoLink("");
     setAssetArea("");
     setModalState("close");
-
-    console.log("hideModal invoked...");
   };
 
   // share image function

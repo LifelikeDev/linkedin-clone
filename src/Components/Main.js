@@ -16,7 +16,7 @@ const Main = ({ user, loading, articles, fetchArticles }) => {
   };
 
   useEffect(() => {
-    fetchArticles();
+    fetchArticles(); // eslint-disable-next-line
   }, []);
 
   return (
@@ -171,7 +171,6 @@ const CommonCard = styled.div`
   box-shadow: 0 0 0 1px rgb(0 0 0 / 15%), 0 0 0 rgb(0 0 0/ 20%);
   border: none;
   margin-bottom: 8px;
-  /* overflow: hidden; */
   position: relative;
   text-align: center;
 `;
@@ -181,7 +180,6 @@ const PostItemWrapper = styled(CommonCard)`
   background-color: #fff;
   color: #958b7b;
   display: flex;
-  /* align-items: center; */
   flex-direction: column;
   margin-bottom: 20px;
 
@@ -371,7 +369,6 @@ const PostReactions = styled.ul`
   list-style-type: none;
 
   li {
-    /* border: 1px solid blue; */
     font-size: 12px;
     margin-right: 4px;
     vertical-align: baseline;
