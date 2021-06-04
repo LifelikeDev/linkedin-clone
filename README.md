@@ -3,7 +3,7 @@ A clone of the desktop version of LinkedIn built with React, Redux, Styled Compo
 
 Find the deployed app [here](https://linkedin-clone-f9c36.web.app)
 
-<br>
+<hr>
 
 # Getting Started with Create React App
 
