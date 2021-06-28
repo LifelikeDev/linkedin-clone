@@ -1,5 +1,7 @@
 # LinkedIn Clone
-A clone of the desktop version of LinkedIn built with React, Redux, Styled Components and Firebase tools. The app was hosted on Firebase.
+This is a clone of the web version of linkedin.com. React.js was used to build the frontend of the app, Redux for state management and Firebase for the backend. This app has user login functionality which is handled by Firebase Authentication. Any user with a Gmail account can sign into the app.
+
+Once a user is signed in, they can view posts from other users. Firebase Firestore is used in this app to store user details and posts. Users can also add posts which include text, images and video links from other websites. Users can also like posts of other users just as it is in the original app.
 
 Find the deployed app [here](https://linkedin-clone-f9c36.web.app)
 
